@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
 
 interface ISearchProps {
-  keyword: string;
-  setKeyword: (value: string) => void,
-  onSubmit: () => void
+  onSubmit: (keyword?: string) => void
 }
 
-export default function Search({ keyword, setKeyword, onSubmit }: ISearchProps) {
+export default function Search({ onSubmit }: ISearchProps) {
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    onSubmit()
+    onSubmit(inputRef.current?.value)
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <input
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
+        ref={inputRef}
         type="text"
         placeholder="Search"
         className="bg-slate-700 rounded-l-lg py-2 px-4" />
