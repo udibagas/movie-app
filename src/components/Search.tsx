@@ -1,16 +1,14 @@
 import React, { useRef } from "react";
+import useMovie from "../hooks/useMovie";
 
-interface ISearchProps {
-  onSubmit: (keyword?: string) => void
-}
-
-export default function Search({ onSubmit }: ISearchProps) {
-
-  const inputRef = useRef<HTMLInputElement>(null)
+export default function Search() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { setKeyword } = useMovie();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    onSubmit(inputRef.current?.value)
+    e.preventDefault();
+    if (!inputRef.current) return;
+    setKeyword(inputRef.current?.value);
   }
 
   return (
@@ -19,9 +17,15 @@ export default function Search({ onSubmit }: ISearchProps) {
         ref={inputRef}
         type="text"
         placeholder="Search"
-        className="bg-slate-700 rounded-l-lg py-2 px-4" />
+        className="bg-slate-700 rounded-l-lg py-2 px-4"
+      />
 
-      <button type="submit" className="rounded-r-lg py-2 px-4 bg-slate-700 border-l-2 border-slate-500">SEARCH</button>
+      <button
+        type="submit"
+        className="rounded-r-lg py-2 px-4 bg-slate-700 border-l border-slate-500 cursor-pointer"
+      >
+        SEARCH
+      </button>
     </form>
-  )
+  );
 }
