@@ -1,6 +1,7 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Movie from "../../components/Movie";
+import Movie from "../../src/components/Movie";
 
 const movie = {
   "Title": "Iron Man",

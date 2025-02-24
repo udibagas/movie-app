@@ -1,6 +1,7 @@
+import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import App from "../../App";
+import App from "../../src/App";
 
 describe("Search component integration test", () => {
   test("Search feature", async () => {

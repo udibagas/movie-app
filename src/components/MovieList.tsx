@@ -13,7 +13,7 @@ export default function MovieList() {
   }
 
   return (
-    <div className="flex gap-4 flex-wrap my-8 justify-center items-center m-auto lg:w-2/3 md:w-5/6 sm:w-11/12">
+    <div id="movieList" className="flex gap-4 flex-wrap my-8 justify-center items-center m-auto lg:w-2/3 md:w-5/6 sm:w-11/12">
       {movies.map((movie, id) => <Movie movie={movie} key={id} />)}
     </div>
   )
