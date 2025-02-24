@@ -19,22 +19,24 @@ export default function MovieProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (keyword === null) return;
 
-    setLoading(true)
-
-    axios.get<IApiResponse>(`https://www.omdbapi.com/?apikey=4ac3cdbc&s=${keyword}`)
-      .then(response => {
+    async function fetchMovies() {
+      setLoading(true)
+      try {
+        const url = `https://www.omdbapi.com/?apikey=4ac3cdbc&s=${keyword}`
+        const response = await axios.get<IApiResponse>(url)
+        setMovies(response.data.Search)
+        setError('')
         if (response.data.Response === 'False') {
           throw new Error(response.data.Error)
         }
+      } catch (error) {
+        setError((error as Error).message)
+      }
 
-        setMovies(response.data.Search)
-        setError('')
-      }).catch(e => {
-        setError(e.message)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+      setLoading(false)
+    }
+
+    fetchMovies();
   }, [keyword])
 
   return (
