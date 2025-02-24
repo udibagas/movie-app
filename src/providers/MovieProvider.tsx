@@ -19,6 +19,8 @@ export default function MovieProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (keyword === null) return;
 
+    setLoading(true)
+
     axios.get<IApiResponse>(`https://www.omdbapi.com/?apikey=4ac3cdbc&s=${keyword}`)
       .then(response => {
         if (response.data.Response === 'False') {
@@ -26,6 +28,7 @@ export default function MovieProvider({ children }: { children: ReactNode }) {
         }
 
         setMovies(response.data.Search)
+        setError('')
       }).catch(e => {
         setError(e.message)
       })
